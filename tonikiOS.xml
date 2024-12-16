@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="iOS" parallel="false" thread-count="1">
+    <parameter name="url" value="" />
+    <parameter name="Platform" value="iOS"></parameter>
+    <listeners>
+        <listener class-name="com.tonik.utility.ExtentReporter" />
+    </listeners>
+    <test name="TONIK">
+        <parameter name="deviceName" value="00008030-000635C61EFA402E"></parameter>
+        <classes>
+            <class name="com.tonik.regression.SendMoneyScripts"/>
+        </classes>
+    </test> <!-- Test -->
+</suite> <!-- Suite -->
