@@ -1,0 +1,46 @@
+
+
+#ignore all metadata directories
+.metadata/
+
+# ignore all RemoteSystemsTempFiles directories
+RemoteSystemsTempFiles/
+
+# ignore all settings directories
+.settings/
+.idea/
+.git/
+
+# ignore all target directories
+target/*
+target/classes/*
+
+# ignore all test-output directories
+test-output/*
+bin/
+
+# ignore all test-report directories
+tonikAndroid.xml
+tonikiOS.xml
+tonikWeb.xml
+tonikParallel.xml
+
+#ignore reports
+Reports/*
+
+# ignore all files below with
+_classpath
+_project
+.classpath
+.project
+_settings
+/target/
+*~
+/test-output/
+.classpath
+.settings/org.eclipse.m2e.core.prefs
+target/classes/META-INF/MANIFEST.MF
+*/.DS_Store
+./.DS_Store
+src/.DS_Store
+.DS_Store
