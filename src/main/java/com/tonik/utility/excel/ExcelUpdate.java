@@ -181,6 +181,7 @@ public class ExcelUpdate {
             if (xrow == null) {
                 xrow = myExcelSheet.createRow(row);
             }
+            
             Cell cell = null;
             // Update the value of cell
             if (cell == null) {

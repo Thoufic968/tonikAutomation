@@ -26,6 +26,7 @@ public class ExcelFunctions {
 		public static int getRowCount(String xlPath, String sheet) {
 			int rc = 0;
 			try {
+
 				FileInputStream fis = new FileInputStream(xlPath);
 				Workbook wb = WorkbookFactory.create(fis);
 				Sheet s = wb.getSheet(sheet);

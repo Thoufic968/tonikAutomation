@@ -22,6 +22,7 @@ public class MailReport {
 		String[] cc = {};
 		String[] bcc = {};
 
+
 		sendMail("trazak@tonikbank.com", "Collabera@24", "smtp.gmail.com", "25", "true", "true", true, "javax.net.ssl.SSLSocketFactory",
 				"false", to, cc, bcc, "AUTOMATION REPORT", "Please find the reports attached.\n\n Regards\n Automation Team",
 				filepath);
