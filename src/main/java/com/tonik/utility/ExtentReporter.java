@@ -78,6 +78,7 @@ public class ExtentReporter implements ITestListener {
 	private PropertyFileReader handler;
 	boolean startTest=false;
 	public static ITestContext testContext;
+//	public static String node=null;
 	
 	/** The Constant logger. */
 	static LoggingUtils logger = new LoggingUtils();
@@ -177,7 +178,7 @@ public class ExtentReporter implements ITestListener {
 			logger.info("Run Mode :: YES");
 			DriverInstance.methodName = result.getName();
 			ExcelUpdate.ModuleName = result.getName();
-			ExcelUpdate.passCounter = ExcelUpdate.failCounter = ExcelUpdate.warningCounter = moduleFailCount = 0;
+			ExcelUpdate.passCounter = ExcelUpdate.failCounter = ExcelUpdate.warningCounter = ExcelUpdate.skipCounter = moduleFailCount = 0;
 			logger.info(":::::::::Test " + result.getName() + " Started::::::::");
 			totalTests++;
 		}
@@ -218,8 +219,8 @@ public class ExtentReporter implements ITestListener {
 		}else {
 			totalPassedTest++;
 		}
-		ExcelUpdate.writeData(result.getName(), "Pass", "");
-		mailBodyPart.add(result.getName()+","+ExcelUpdate.passCounter+","+ExcelUpdate.failCounter);
+		ExcelUpdate.writeData(result.getName(), "Pass", "",childTest.get().getModel().getName());
+		mailBodyPart.add(result.getName()+","+ExcelUpdate.passCounter+","+ExcelUpdate.failCounter+","+ExcelUpdate.skipCounter);
 	}
 
 	@Override
@@ -243,8 +244,8 @@ public class ExtentReporter implements ITestListener {
 				System.out.println("Module name : "+moduleName);
 				totalFailedTest++;
 			}
-			ExcelUpdate.writeData(result.getName(), "Fail", "");
-			mailBodyPart.add(result.getName()+","+ExcelUpdate.passCounter+","+ExcelUpdate.failCounter);
+			ExcelUpdate.writeData(result.getName(), "Fail", "",childTest.get().getModel().getName());
+			mailBodyPart.add(result.getName()+","+ExcelUpdate.passCounter+","+ExcelUpdate.failCounter+","+ExcelUpdate.skipCounter);
 		}finally {
 			logger.info("::::::::::Relaunching The App::::::::::");
 			Utilities.relaunch=true;
@@ -257,15 +258,16 @@ public class ExtentReporter implements ITestListener {
 			HeaderChildNode(result.getTestName());
 			childTest.get().log(Status.SKIP, result.getName() + " is SKIPPED");
 			logger.info("::::::::::Test " + result.getName() + " SKIPPED::::::::::");
+			totalSkipedTest++;
 		}
-		ExcelUpdate.writeData(result.getName(), "SKIP", "");
-		mailBodyPart.add(result.getName()+","+ExcelUpdate.passCounter+","+ExcelUpdate.failCounter);
+		ExcelUpdate.writeData(result.getName(), "SKIP", "",childTest.get().getModel().getName());
+		mailBodyPart.add(result.getName()+","+ExcelUpdate.passCounter+","+ExcelUpdate.failCounter+","+ExcelUpdate.skipCounter);
 	}
 
 	public static synchronized void HeaderChildNode(String header) {
 		if (extentTest.get() != null)
 			childTest.set(extentTest.get().createNode(header));
-		ExcelUpdate.Node(header);
+//		ExcelUpdate.Node(header);
 	}
 
 	public static synchronized void extentLogger(String stepName, String details) {
@@ -283,7 +285,7 @@ public class ExtentReporter implements ITestListener {
 		screencapture();
 		moduleFailCount = 1;
 		logfail++;
-		ExcelUpdate.writeData("", "Fail", details);
+//		ExcelUpdate.writeData("", "Fail", details);
 	}
 
 	public static synchronized void extentLoggerWarning(String stepName, String details) {
