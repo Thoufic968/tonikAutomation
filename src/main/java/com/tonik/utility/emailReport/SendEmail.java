@@ -256,7 +256,7 @@ public class SendEmail {
     public static void main(String[] args) {
         try {
             ExcelUpdate.createExcel();
-            ExcelUpdate.writeData(" bshj hh bhsh ", "PASS", "");
+            ExcelUpdate.writeData(" bshj hh bhsh ", "PASS", "","");
 
             sendEmailReport();
         } catch (Exception e) {

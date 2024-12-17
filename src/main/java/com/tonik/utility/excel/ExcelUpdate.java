@@ -32,6 +32,7 @@ public class ExcelUpdate {
     public static int passCounter = 0;
     public static int failCounter = 0;
     public static int warningCounter = 0;
+    public static int skipCounter = 0;
     static String sheet1 = "Module Result";
 
 
@@ -103,7 +104,7 @@ public class ExcelUpdate {
         }
     }
 
-    public static void writeData(String validation, String result, String error) {
+    public static void writeData(String validation, String result, String error,String node) {
         try (
                 FileInputStream fis = new FileInputStream(xlpath);
                 XSSFWorkbook workbook = new XSSFWorkbook(fis);
@@ -128,7 +129,7 @@ public class ExcelUpdate {
             }
 
             // Write data based on the result
-            writeRowData(xrow, validation, result, error);
+            writeRowData(xrow, validation, result, error,node);
 
             // Increment row for the next data entry
             row++;
@@ -152,23 +153,29 @@ public class ExcelUpdate {
         headerRow.createCell(3).setCellValue("Remarks");
     }
 
-    private static void writeRowData(XSSFRow row, String validation, String result, String error) {
-        row.createCell(0).setCellValue(ModuleName);
-        row.createCell(2).setCellValue(validation);
+    private static void writeRowData(XSSFRow row, String validation, String result, String error,String node) {
+        // Write unique data to each column
+        row.createCell(0).setCellValue(validation); // Column 0: Module Name
+        row.createCell(1).setCellValue(node); // Column 1: Validation
+        row.createCell(2).setCellValue(result);     // Column 2: Result
 
+        // If result is Fail, Skip, or Warning, then write error
+        if ("Fail".equalsIgnoreCase(result) || "Skip".equalsIgnoreCase(result) || "Warning".equalsIgnoreCase(result)) {
+            row.createCell(3).setCellValue(error); // Column 3: Error
+        }
+
+        // Update counters
         if ("Pass".equalsIgnoreCase(result)) {
-            row.createCell(2).setCellValue(result);
             passCounter++;
         } else if ("Fail".equalsIgnoreCase(result)) {
-            row.createCell(2).setCellValue(result);
-            row.createCell(3).setCellValue(error);
+            failCounter++;
+        } else if ("Skip".equalsIgnoreCase(result)) {
             failCounter++;
         } else if ("Warning".equalsIgnoreCase(result)) {
-            row.createCell(2).setCellValue(result);
-            row.createCell(3).setCellValue(error);
             warningCounter++;
         }
     }
+
 
 
     public static void Node(String NodeName) {
@@ -181,7 +188,6 @@ public class ExcelUpdate {
             if (xrow == null) {
                 xrow = myExcelSheet.createRow(row);
             }
-            
             Cell cell = null;
             // Update the value of cell
             if (cell == null) {

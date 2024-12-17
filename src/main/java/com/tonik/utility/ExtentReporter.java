@@ -178,8 +178,7 @@ public class ExtentReporter implements ITestListener {
 			logger.info("Run Mode :: YES");
 			DriverInstance.methodName = result.getName();
 			ExcelUpdate.ModuleName = result.getName();
-			ExcelUpdate.passCounter = ExcelUpdate.failCounter = ExcelUpdate.warningCounter = ExcelUpdate.skipCounter = moduleFailCount = 0;
-			logger.info(":::::::::Test " + result.getName() + " Started::::::::");
+			ExcelUpdate.passCounter = ExcelUpdate.failCounter = ExcelUpdate.warningCounter = ExcelUpdate.skipCounter = moduleFailCount = 0;			logger.info(":::::::::Test " + result.getName() + " Started::::::::");
 			totalTests++;
 		}
 		else {
