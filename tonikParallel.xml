@@ -17,7 +17,7 @@
             </class>
             <class name="com.tonik.regression.TopUpScripts">
                 <methods>
-                    <include name="TDB_TU_005"/>
+                    <include name="TDB_TU_007"/>
                 </methods>
             </class>
         </classes><!-- </class> -->
